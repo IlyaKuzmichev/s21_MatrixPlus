@@ -2,7 +2,7 @@ CC							= g++
 CFLAGS					= -std=c++17 -Wall -Wextra -Werror -pedantic -fsanitize=address,undefined -I .
 LDFLAGS					= -lgtest_main -lgtest -lpthread 
 VALGRIND_FLAGS	= --log-file="valgrind.txt" --track-origins=yes --trace-children=yes --leak-check=full --leak-resolution=med
-GCOVFLAGS = -fprofile-arcs -ftest-coverage
+GCOVFLAGS 			= -fprofile-arcs -ftest-coverage
 
 SRC_PROJECT_DIR	= library/
 SRC_TEST_DIR		= tests/
