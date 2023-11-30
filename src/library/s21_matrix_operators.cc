@@ -33,14 +33,9 @@ S21Matrix& S21Matrix::operator=(S21Matrix&& other) noexcept {
   if (this == &other) {
     return *this;
   }
-  FreeMatrix();
-  rows_ = other.rows_;
-  cols_ = other.cols_;
-  InitMatrix();
-  CopyMatrix(other);
-  other.rows_ = 0;
-  other.cols_ = 0;
-  other.matrix_ = nullptr;
+  std::swap(rows_, other.rows_);
+  std::swap(cols_, other.cols_);
+  std::swap(matrix_, other.matrix_);
   return *this;
 }
 

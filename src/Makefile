@@ -18,9 +18,9 @@ FILES_TO_CHECK	= $(shell find . -name '*.cc' && find . -name '*.h')
 
 .PHONY: all test build rebuild clang gcov_report gcovr_report clean valgrind
 
-all: clean $(LIBRARY) test
+all: $(LIBRARY)
 
-$(LIBRARY): clean build_folders $(OBJ_PROJECT)
+$(LIBRARY): build_folders $(OBJ_PROJECT)
 	ar rc $(LIBRARY) $(OBJ_PROJECT)
 	ranlib $(LIBRARY)
 
@@ -34,7 +34,7 @@ test: $(LIBRARY) $(OBJ_TEST)
 	$(CC) $(CFLAGS) $(OBJ_TEST) -o test $(LIBRARY) $(LDFLAGS)
 	./test
 
-gcov_report: clean $(LIBRARY) $(OBJ_TEST)
+gcov_report: $(LIBRARY) $(OBJ_TEST)
 	$(CC) $(CFLAGS) -o test $(OBJ_TEST) --coverage $(SRC_PROJECT) $(LDFLAGS)
 	./test
 	lcov -t test -o test.info -c -d . --no-external
@@ -42,7 +42,7 @@ gcov_report: clean $(LIBRARY) $(OBJ_TEST)
 	rm -rf ./*.gc*
 	open report/index.html
 
-gcovr_report: clean $(LIBRARY) $(OBJ_TEST)
+gcovr_report: $(LIBRARY) $(OBJ_TEST)
 	$(CC) $(CFLAGS) -o test $(OBJ_TEST) --coverage $(SRC_PROJECT) $(LDFLAGS)
 	./test
 	mkdir gcovr/
@@ -50,7 +50,7 @@ gcovr_report: clean $(LIBRARY) $(OBJ_TEST)
 	rm -rf ./*.gc*
 	open gcovr/report.details.html
 
-report_nohtml: clean $(LIBRARY) $(OBJ_TEST)
+report_nohtml: $(LIBRARY) $(OBJ_TEST)
 	$(CC) $(CFLAGS) -o test $(OBJ_TEST) --coverage $(SRC_PROJECT) $(LDFLAGS)
 	./test
 	gcov *gcno > coverage.txt
